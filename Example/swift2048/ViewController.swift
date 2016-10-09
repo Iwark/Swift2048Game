@@ -19,8 +19,7 @@ class ViewController: UIViewController {
         Game.sharedInstance.nextTurn()
     }
     
-    // When the turn of the Game changed, this method is called
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         print(Game.sharedInstance.board)
     }
     

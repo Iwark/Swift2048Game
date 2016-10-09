@@ -1,5 +1,5 @@
 PODS:
-  - Swift2048Game (0.0.1)
+  - Swift2048Game (2.0.0)
 
 DEPENDENCIES:
   - Swift2048Game (from `..`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  Swift2048Game: 413459f905c8ac3794bc9aed821c227c130e7ad0
+  Swift2048Game: fd873da73bed01c239cf9e3fcba5ac4ceaa603cf
 
-PODFILE CHECKSUM: 68742ac7c7d5357e75d44882228bd562cc70186f
+PODFILE CHECKSUM: 9e01ad089b1d91332b78fac1bd60cee4ef40c0c0
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2
