@@ -28,7 +28,5 @@ class ViewController: UIViewController {
         Game.sharedInstance.removeObserver(self, forKeyPath: "turn")
     }
 
-    
-
 }
 

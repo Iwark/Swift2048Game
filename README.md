@@ -10,7 +10,7 @@ Swift2048Game is a Game model of swift 2048.
 ## Runtime Requirements
 
 * iOS 8.0 or later
-* Xcode 7.3 - Swift2.2
+* Xcode 8.0 - Swift3
 
 ## Installation
 

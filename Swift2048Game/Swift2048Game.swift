@@ -8,29 +8,29 @@
 
 import UIKit
 
-public class Game: NSObject {
+open class Game: NSObject {
     
-    public static var sharedInstance = Game()
+    open static var sharedInstance = Game()
     
-    public dynamic var turn = 0
-    public var boardSize = 4
-    public var board = [[Int]]()
+    open dynamic var turn = 0
+    open var boardSize = 4
+    open var board = [[Int]]()
     
     override init() {
         super.init()
         for _ in 0..<self.boardSize {
-            self.board.append([Int](count: self.boardSize, repeatedValue: 0))
+            self.board.append([Int](repeating: 0, count: self.boardSize))
         }
     }
     
-    public func nextTurn() {
+    open func nextTurn() {
         self.generateNumber()
         self.turn += 1
     }
     
-    public func swipableDirections() -> [UISwipeGestureRecognizerDirection]{
+    open func swipableDirections() -> [UISwipeGestureRecognizerDirection]{
         var results = [UISwipeGestureRecognizerDirection]()
-        for dir:UISwipeGestureRecognizerDirection in [.Left, .Down, .Right, .Up]{
+        for dir:UISwipeGestureRecognizerDirection in [.left, .down, .right, .up]{
             let slidBoard = slideBoard(dir, virtual:true)
             for i in 0..<self.boardSize {
                 if !self.board[i].elementsEqual(slidBoard[i]) {
@@ -42,20 +42,20 @@ public class Game: NSObject {
         return results
     }
     
-    public func slideBoard(dir: UISwipeGestureRecognizerDirection, virtual: Bool) -> [[Int]] {
+    open func slideBoard(_ dir: UISwipeGestureRecognizerDirection, virtual: Bool) -> [[Int]] {
         var slidBoard = self.board
         for i in 0..<self.boardSize {
             switch dir {
-            case UISwipeGestureRecognizerDirection.Up:
+            case UISwipeGestureRecognizerDirection.up:
                 let slid = slideNumbers(board.map({ (line) -> Int in return line[i] }), reverse: false)
                 for t in 0..<self.boardSize {
                     slidBoard[t][i] = slid[t]
                 }
-            case UISwipeGestureRecognizerDirection.Left:
+            case UISwipeGestureRecognizerDirection.left:
                 slidBoard[i] = slideNumbers(board[i], reverse: false)
-            case UISwipeGestureRecognizerDirection.Right:
+            case UISwipeGestureRecognizerDirection.right:
                 slidBoard[i] = slideNumbers(board[i], reverse: true)
-            case UISwipeGestureRecognizerDirection.Down:
+            case UISwipeGestureRecognizerDirection.down:
                 let slid = slideNumbers(board.map({ (line) -> Int in return line[i] }), reverse: true)
                 for t in 0..<self.boardSize {
                     slidBoard[t][i] = slid[t]
@@ -71,7 +71,7 @@ public class Game: NSObject {
         return slidBoard
     }
     
-    public func isGameOver() -> Bool {
+    open func isGameOver() -> Bool {
         return self.swipableDirections().count == 0
     }
     
@@ -98,14 +98,14 @@ public class Game: NSObject {
     }
     
     // [2, 2, 0, 4] => [2, 2, 4]
-    func condense(numbers: [Int]) -> [Int] {
+    func condense(_ numbers: [Int]) -> [Int] {
         return numbers.filter { (num) -> Bool in
             return num != 0
         }
     }
     
     // [2, 2, 4] => [4, 4]
-    func merge(numbers: [Int]) -> [Int] {
+    func merge(_ numbers: [Int]) -> [Int] {
         var mergedNumbers = [Int]()
         var i = 0
         while i < numbers.count {
@@ -125,15 +125,15 @@ public class Game: NSObject {
     }
     
     // [4, 4] => [4, 4, 0, 0]
-    func fillBlanks(numbers: [Int]) -> [Int] {
-        return numbers + [Int](count: self.boardSize-numbers.count, repeatedValue: 0)
+    func fillBlanks(_ numbers: [Int]) -> [Int] {
+        return numbers + [Int](repeating: 0, count: self.boardSize-numbers.count)
     }
     
     // reverse=false(up, left)   : [2, 2, 0, 4] => [4, 4, 0, 0]
     // reverse=true(right, down) : [2, 2, 0, 4] => [0, 0, 4, 4]
-    func slideNumbers(numbers: [Int], reverse: Bool) -> [Int] {
+    func slideNumbers(_ numbers: [Int], reverse: Bool) -> [Int] {
         if reverse {
-            return fillBlanks(merge(condense(numbers.reverse()))).reverse()
+            return fillBlanks(merge(condense(numbers.reversed()))).reversed()
         } else {
             return fillBlanks(merge(condense(numbers)))
         }
