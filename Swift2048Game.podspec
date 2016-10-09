@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Swift2048Game"
-  s.version      = "1.0.0"
+  s.version      = "2.0.0"
   s.summary      = "Swift 2048 game model."
   s.description  = <<-DESC
   - Swift 2048 game model.
